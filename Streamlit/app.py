@@ -18,7 +18,7 @@ insight_options = [
 ]
 selected_insight = st.sidebar.selectbox("Pilih Analisis", insight_options)
 
-csv_path = "Streamlit/polished_df(with_final_touch).csv"
+csv_path = "./Streamlit/polished_df(with_final_touch).csv"
 
 try:
     df = pd.read_csv(csv_path)
