@@ -29,6 +29,13 @@ try:
 
     if selected_insight == "Data Penjualan":
         st.subheader("Data Penjualan")
+        st.subheader("Cek Struktur DataFrame")
+        st.write("Tipe data per kolom:")
+        st.write(df.dtypes)
+        
+        st.write("Sample 5 baris pertama:")
+        st.write(df.head())
+
         st.dataframe(df)
 
     elif selected_insight == "Statistik Metode Pembayaran":
