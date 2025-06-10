@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import os
+import pyarrow as pa
 
 st.set_page_config(page_title="Visualisasi Penjualan", layout="centered")
 st.title("Visualisasi Penjualan & Statistik")
@@ -23,6 +24,19 @@ csv_path = "./Streamlit/polished_df_final.csv"
 
 try:
     df = pd.read_csv(csv_path)
+
+    if 'tanggal' in df.columns:
+    try:
+        df['tanggal'] = pd.to_datetime(df['tanggal'], errors='coerce')
+    except:
+        df['tanggal'] = df['tanggal'].astype(str)
+
+# 💣 FULL SANITIZATION TO AVOID ARROWTYPEERROR
+for col in df.columns:
+    try:
+        _ = pa.array(df[col])  # test PyArrow compatibility
+    except:
+        df[col] = df[col].astype(str)
 
     if 'tanggal' in df.columns:
         df['tanggal'] = pd.to_datetime(df['tanggal'])
