@@ -29,6 +29,13 @@ try:
 
     if selected_insight == "Data Penjualan":
         st.subheader("Data Penjualan")
+        # Clean DataFrame for PyArrow compatibility
+        for col in df.columns:
+            try:
+                pd.array(df[col])  # force PyArrow to test it
+            except Exception:
+                df[col] = df[col].astype(str)
+
         st.subheader("Cek Struktur DataFrame")
         st.write("Tipe data per kolom:")
         st.write(df.dtypes)
