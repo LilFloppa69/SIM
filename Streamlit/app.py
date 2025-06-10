@@ -48,7 +48,7 @@ try:
 
         st.dataframe(df)
 
-    elif selected_insight == "Statistik Metode Pembayaran":
+    if selected_insight == "Statistik Metode Pembayaran":
         if 'payment_type' in df.columns:
             st.header("Statistik Metode Pembayaran")
             payment_stats = df['payment_type'].value_counts().sort_values(ascending=False)
