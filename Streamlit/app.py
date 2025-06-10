@@ -19,7 +19,7 @@ insight_options = [
 ]
 selected_insight = st.sidebar.selectbox("Pilih Analisis", insight_options)
 
-csv_path = os.path.join(os.path.dirname(__file__), "polished_df(with_final_touch).csv")
+csv_path = os.path.join(os.path.dirname(__file__), "polished_df_final.csv")
 
 try:
     df = pd.read_csv(csv_path)
