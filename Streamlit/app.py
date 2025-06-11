@@ -32,21 +32,23 @@ try:
         except Exception:
             df['tanggal'] = df['tanggal'].astype(str)
 
-    # 💣 Full sanitization: make all columns safe for PyArrow (Streamlit)
-    for col in df.columns:
-        try:
-            _ = pa.array(df[col])  # test PyArrow compatibility
-        except Exception:
-            df[col] = df[col].astype(str)
+   # Periksa kompatibilitas PyArrow
+for col in df.columns:
+    try:
+        _ = pa.array(df[col])  # test PyArrow compatibility
+    except Exception as e:
+        st.warning(f"Kolom '{col}' tidak kompatibel dengan PyArrow. Akan dikonversi ke string.")
+        df[col] = df[col].astype(str)
 
-        st.subheader("Cek Struktur DataFrame")
-        st.write("Tipe data per kolom:")
-        st.write(df.dtypes)
-        
-        st.write("Sample 5 baris pertama:")
-        st.write(df.head())
+# Output Streamlit hanya dipanggil sekali setelah semua kolom disanitasi
+st.subheader("Cek Struktur DataFrame")
+st.write("Tipe data per kolom:")
+st.write(df.dtypes)
 
-        st.dataframe(df)
+st.write("Sample 5 baris pertama:")
+st.write(df.head())
+
+st.dataframe(df)
 
     if selected_insight == "Statistik Metode Pembayaran":
         if 'payment_type' in df.columns:
