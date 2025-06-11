@@ -50,6 +50,7 @@ def clean_dataframe(df):
 
 try:
     df = pd.read_csv(csv_path)
+    df.columns = df.columns.str.strip().str.lower()
     
     # Debug: tampilkan info kolom di sidebar
     st.sidebar.write("---")
