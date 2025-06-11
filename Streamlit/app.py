@@ -32,23 +32,27 @@ try:
         except Exception:
             df['tanggal'] = df['tanggal'].astype(str)
 
-   # Periksa kompatibilitas PyArrow
-for col in df.columns:
-    try:
-        _ = pa.array(df[col])  # test PyArrow compatibility
-    except Exception as e:
-        st.warning(f"Kolom '{col}' tidak kompatibel dengan PyArrow. Akan dikonversi ke string.")
-        df[col] = df[col].astype(str)
+    # Periksa kompatibilitas PyArrow
+    for col in df.columns:
+        try:
+            _ = pa.array(df[col])  # test PyArrow compatibility
+        except Exception as e:
+            st.warning(f"Kolom '{col}' tidak kompatibel dengan PyArrow. Akan dikonversi ke string.")
+            df[col] = df[col].astype(str)
 
-# Output Streamlit hanya dipanggil sekali setelah semua kolom disanitasi
-st.subheader("Cek Struktur DataFrame")
-st.write("Tipe data per kolom:")
-st.write(df.dtypes)
+    # Output Streamlit hanya dipanggil sekali setelah semua kolom disanitasi
+    st.subheader("Cek Struktur DataFrame")
+    st.write("Tipe data per kolom:")
+    st.write(df.dtypes)
 
-st.write("Sample 5 baris pertama:")
-st.write(df.head())
+    st.write("Sample 5 baris pertama:")
+    st.write(df.head())
 
-st.dataframe(df)
+    st.dataframe(df)
+
+except FileNotFoundError:
+    st.error(f"File CSV tidak ditemukan: {csv_path}")
+
 
     if selected_insight == "Statistik Metode Pembayaran":
         if 'payment_type' in df.columns:
