@@ -21,8 +21,11 @@ def clean_dataframe(df):
     for pattern in git_patterns:
         df_clean = df_clean.replace(pattern, '', regex=False)
     
-    # Remove rows yang hanya berisi whitespace atau kosong
-    df_clean = df_clean.replace(r'^\s*
+    # Ganti string kosong atau whitespace dengan NaN
+    df = df.replace(r'^\s*$', np.nan, regex=True)
+    
+    # Hapus baris yang seluruh kolomnya kosong (NaN semua)
+    df.dropna(how='all', inplace=True)
 
 try:
     # Read CSV dengan parameter khusus untuk handle mixed types
