@@ -32,15 +32,23 @@ try:
         except Exception:
             df['tanggal'] = df['tanggal'].astype(str)
 
-    # Periksa kompatibilitas PyArrow
+    # Sanitasi kolom agar aman untuk PyArrow
     for col in df.columns:
         try:
             _ = pa.array(df[col])  # test PyArrow compatibility
-        except Exception as e:
+        except Exception:
             st.warning(f"Kolom '{col}' tidak kompatibel dengan PyArrow. Akan dikonversi ke string.")
             df[col] = df[col].astype(str)
 
-    # Output Streamlit hanya dipanggil sekali setelah semua kolom disanitasi
+    # Deteksi kolom object yang masih nyangkut dan paksa jadi string
+    object_cols = df.select_dtypes(include=['object']).columns
+    for col in object_cols:
+        try:
+            df[col] = df[col].astype(str)
+        except Exception:
+            st.warning(f"Gagal konversi kolom '{col}' ke string. Akan dilewati.")
+
+    # Output Streamlit
     st.subheader("Cek Struktur DataFrame")
     st.write("Tipe data per kolom:")
     st.write(df.dtypes)
