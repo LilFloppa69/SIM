@@ -19,7 +19,7 @@ insight_options = [
 ]
 selected_insight = st.sidebar.selectbox("Pilih Analisis", insight_options)
 
-csv_path = "D:/Kuliah/Semester 4/SIM/Tugas Akhir/Streamlit/polished_df_final.csv"
+csv_path = "./Streamlit/polished_df_final.csv"
 
 try:
     df = pd.read_csv(csv_path)
