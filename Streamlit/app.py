@@ -19,7 +19,7 @@ insight_options = [
 ]
 selected_insight = st.sidebar.selectbox("Pilih Analisis", insight_options)
 
-csv_path = "https://raw.githubusercontent.com/LilFloppa69/SIM/refs/heads/main/Streamlit/polished_df_final.csv"
+csv_path = "https://raw.githubusercontent.com/LilFloppa69/SIM/refs/heads/main/Streamlit/df.csv"
 
 def clean_dataframe(df):
     """
