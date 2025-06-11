@@ -51,6 +51,16 @@ def clean_dataframe(df):
 try:
     df = pd.read_csv(csv_path)
     
+    # Debug: tampilkan info kolom di sidebar
+    st.sidebar.write("---")
+    st.sidebar.write("**Debug Info:**")
+    st.sidebar.write(f"Total kolom: {len(df.columns)}")
+    st.sidebar.write("**Nama kolom:**")
+    for i, col in enumerate(df.columns[:10]):  # tampilkan 10 kolom pertama
+        st.sidebar.write(f"{i+1}. {col}")
+    if len(df.columns) > 10:
+        st.sidebar.write(f"... dan {len(df.columns)-10} kolom lainnya")
+    
     # Clean dataframe untuk menghindari Arrow error
     df = clean_dataframe(df)
     
