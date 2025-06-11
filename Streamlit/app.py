@@ -7,7 +7,7 @@ import os
 st.set_page_config(page_title="Visualisasi Penjualan", layout="wide")
 st.title("🛍️ Dashboard Visualisasi Penjualan & Statistik")
 
-csv_path = "./Streamlit/polished_df_final.csv"
+csv_path = "https://raw.githubusercontent.com/LilFloppa69/SIM/refs/heads/main/Streamlit/polished_df_final.csv"
 
 def clean_dataframe(df):
     """
